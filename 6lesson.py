@@ -168,3 +168,29 @@ for number in numbers:
         print('NO')
     else:
         print('YES')
+
+# 2
+n = int(input())
+set_1 = set(range(1, n + 1))
+set_yes = set()
+set_no = set()
+while True:
+    str_1 = input()
+    str_1 = str_1.strip()
+    lst_1 = str_1.split()
+    len_1 = len(lst_1)
+    if len_1 == 0:
+        break
+    elif lst_1[len_1 - 1] == "YES":
+        for i in range(len_1 - 1):
+            if int(lst_1[i]) <= n:
+                lst_1[i] = int(lst_1[i])
+                set_yes.add(lst_1[i])
+        set_1 = set_yes - set_1
+    elif lst_1[len_1 - 1] == "NO":
+        for i in range(len_1 - 1):
+            if int(lst_1[i]) <= n:
+                lst_1[i] = int(lst_1[i])
+                set_no.add(lst_1[i])
+        set_1 -= set_no
+print(set_1)
