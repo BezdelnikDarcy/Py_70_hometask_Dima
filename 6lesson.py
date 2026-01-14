@@ -201,3 +201,35 @@ for i in range(len(lst_2)):
     print(lst_2[i], end=' ')
             # Задачи на словари
 # 4.1
+school = {
+    "9а" : 15,
+    "9б" : 16,
+    "9в" : 17,
+    "9г" : 18,
+    "9д" : 14
+}
+school["9в"] = 15
+school['9e'] = 16
+school.pop('9г')
+print(sum(school.values()))
+
+# 4.2
+slang = {}
+flag = True
+while flag:
+    text = input()
+    if text == ".":
+        flag = False
+    else:
+        num_1 = text.find('–')
+        text_1 = text[:num_1 - 1]
+        text_2 = text[num_1 + 2:]
+        slang[text_1] = text_2
+print(slang)
+m = int(input())
+for i in range(m):
+    request_1 = input()
+    if request_1 not in slang:
+        print('Не найдено')
+    else:
+        print(slang[request_1])
