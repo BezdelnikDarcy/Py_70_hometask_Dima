@@ -136,7 +136,7 @@ len_1 = len(lst_1)
 for i in range(len_1):
     if lst_1[i - count_2] > 0:
         continue
-    elif lst_1[i - count_1] == 0:
+    elif lst_1[i - count_2] == 0:
         count_1 += 1
     elif lst_1[i - count_2] < 0:
         lst_1.append(lst_1[i - count_2])
