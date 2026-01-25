@@ -88,7 +88,7 @@ def sum_neigh():
     nums = input()
     lst_1 = nums.split(' ')
     for i in range(len(lst_1) - 1):
-        sum = int(lst_1[i- 1]) + int(lst_1[i + 1])
-        print(sum, end=' ')
+        sum_1 = int(lst_1[i- 1]) + int(lst_1[i + 1])
+        print(sum_1, end=' ')
     print(int(lst_1[0]) + int(lst_1[-2]))
 sum_neigh()
