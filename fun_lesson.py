@@ -85,10 +85,9 @@ print(set_nums())
 
 # 9
 def sum_neigh():
-    nums = input()
-    lst_1 = nums.split(' ')
+    lst_1 = [int(el) for el in input().split() if el.isdigit()]
     for i in range(len(lst_1) - 1):
-        sum_1 = int(lst_1[i- 1]) + int(lst_1[i + 1])
+        sum_1 = lst_1[i - 1] + lst_1[i + 1]
         print(sum_1, end=' ')
-    print(int(lst_1[0]) + int(lst_1[-2]))
+    print(lst_1[0] + lst_1[-2])
 sum_neigh()
