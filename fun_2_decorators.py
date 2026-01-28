@@ -92,6 +92,6 @@ print(dict_1)
 lst_1 = [('milk', 3, 5), ('burger', 8, 2), ('bread', 2, 10), ('juice', 4, 6)]
 lst_2 = []
 for product in lst_1:
-    sum = product[1] * product[2]
+    sum_1 = product[1] * product[2]
     lst_2.append(sum)
 print(lst_2)
