@@ -1,11 +1,11 @@
                             # Задачи на кортежи
-# 1
+# 1.1
 tup = (2, 3, 6, 3, 1, 2, 7, 4, 3, 9)
 max_t = max(tup)
 min_t = min(tup)
 print(max_t - min_t)
 
-# 2
+# 1.2
 tup = (2, -3, 6, -3, 1, 2, 7, 4, 3, -9)
 change_1 = 0
 for i in range(1, len(tup)):
@@ -13,7 +13,7 @@ for i in range(1, len(tup)):
         change_1 += 1
 print(change_1)
 
-# 3
+# 1.3
 up = (25, 34, 67, -31, 11, 23, 76, 43, 32, 92)
 for i in range(len(tup)):
     deliteli = 0
@@ -23,11 +23,11 @@ for i in range(len(tup)):
     if deliteli == 1:
         print(tup[i])
 
-# 4
+# 1.4
 tup = (5, 2, 6, 8, 9, 7, 5, 7, 8) #O(1)
-count_max = 0 #Кол-во элементов максимальной последовательности
-count_1 = 0 #Кол-во элементов возрастающей последовательности
-count_2 = 0 #Кол-во элементов убывающей последовательности
+count_max = 0
+count_1 = 0
+count_2 = 0
 first_index = 0
 for i in range(len(tup) - 1):
     if tup[i] < tup[i + 1]:
@@ -46,7 +46,7 @@ for i in range(len(tup) - 1):
         count_2 = 0
 print(count_max)
 print(tup[first_index: first_index + count_max])
-# 5
+# 1.5
 tup = (1, 2, 1, 2, 6, 1, 2)
 for i in range(len(tup)):
     count_1 = 0
@@ -63,7 +63,7 @@ for i in range(len(tup)):
         print(tup[i])
 
                         # Задачи на списки
-# 1
+# 2.1
 lst_1 = [4, 1, 6 ,9]
 lst_2 = [8, 1, 2, 4, 9, 5, 7, 6]
 while lst_1:
@@ -76,7 +76,7 @@ while lst_1:
 else:
     print('Нет такого элемента')
 
-# 2
+# 2.2
 lst_1 = [1, 2, 1, 4, 1,6]
 lst_2 = lst_1.copy()
 count_1 = 0
@@ -94,7 +94,7 @@ for i in range(len(lst_1)):
         lst_2.insert(index_1, number_1)
 print(lst_2)
 
-# 3
+# 2.3
 lst_1 = [5, 2, 4, 5, 1, 2]
 lst_2 = lst_1.copy()
 while lst_2:
@@ -105,7 +105,7 @@ while lst_2:
             while i in lst_2:
                 lst_2.remove(i)
 
-# 4
+# 2.4
 lst_1 = [5, 2, 0, -2, -7, 1, 8, 0, -1]
 lst_2 = lst_1.copy()
 lst_3 = lst_1.copy()
@@ -128,7 +128,7 @@ while count_1:
     count_1 -= 1
 print(lst_3)
 
-# 4
+# 2.4
 lst_1 = [5, 2, 0, -2, -7, 1, 8, 0, -1]
 count_1 = 0
 count_2 = 0
@@ -136,7 +136,7 @@ len_1 = len(lst_1)
 for i in range(len_1):
     if lst_1[i - count_2] > 0:
         continue
-    elif lst_1[i - count_1] == 0:
+    elif lst_1[i - count_2] == 0:
         count_1 += 1
     elif lst_1[i - count_2] < 0:
         lst_1.append(lst_1[i - count_2])
@@ -147,7 +147,7 @@ while count_1:
     count_1 -= 1
 print(lst_1)
 
-# 5
+# 2.5
 lst_1 = [5, 2, 7, 3, 8, 2, 4, 1, 6, 5]
 lst_2 = lst_1.copy()
 count_2 = 0
@@ -157,8 +157,8 @@ for i in range(len(lst_1)):
         count_2 += 1
         lst_2.insert(i + count_2, lst_1[i])
 print(lst_2)
-
-# 1
+            # Задачи на множества
+# 3.1
 str_1 = input()
 numbers = str_1.split(' ')
 set_1 = set()
@@ -168,3 +168,68 @@ for number in numbers:
         print('NO')
     else:
         print('YES')
+
+# 3.2
+n = int(input())
+set_1 = set(range(1, n + 1))
+set_yes = set()
+set_no = set()
+while True:
+    str_1 = input()
+    str_1 = str_1.strip()
+    lst_1 = str_1.split()
+    len_1 = len(lst_1)
+    if len_1 == 0:
+        break
+    elif lst_1[len_1 - 1] == "YES":
+        for i in range(len_1 - 1):
+            num = int(lst_1[i])
+            if num <= n:
+                set_yes.add(num)
+        set_1 &= set_yes
+        set_yes = set()
+    elif lst_1[len_1 - 1] == "NO":
+        for i in range(len_1 - 1):
+            num = int(lst_1[i])
+            if num <= n:
+                set_no.add(num)
+        set_1 -= set_no
+        set_no = set()
+lst_2 = list(set_1)
+lst_2.sort()
+for i in range(len(lst_2)):
+    print(lst_2[i], end=' ')
+            # Задачи на словари
+# 4.1
+school = {
+    "9а" : 15,
+    "9б" : 16,
+    "9в" : 17,
+    "9г" : 18,
+    "9д" : 14
+}
+school["9в"] = 15
+school['9e'] = 16
+school.pop('9г')
+print(sum(school.values()))
+
+# 4.2
+slang = {}
+flag = True
+while flag:
+    text = input()
+    if text == ".":
+        flag = False
+    else:
+        num_1 = text.find('–')
+        text_1 = text[:num_1 - 1]
+        text_2 = text[num_1 + 2:]
+        slang[text_1] = text_2
+print(slang)
+m = int(input())
+for i in range(m):
+    request_1 = input()
+    if request_1 not in slang:
+        print('Не найдено')
+    else:
+        print(slang[request_1])
