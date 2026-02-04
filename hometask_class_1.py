@@ -112,3 +112,34 @@ shop.del_product('Мука')
 print(shop.get_product())
 
 # 4
+class MoneyBox(object):
+    CAPACITY = 60
+    COINS = 0
+
+    def __init__(self, money: int = COINS, amount : int = CAPACITY) -> None:
+        self.money = money
+        self.amount = amount
+
+    def info(self):
+        print(f"Копилка заполнена на {self.money} из {self.amount}, в копилку можно добавить еще {self.amount - self.money}")
+
+    def can_add(self, v):
+        return (self.money + v) <= self.amount
+
+    def add(self, v):
+        self.money += v
+
+money_box = MoneyBox(amount=100)
+money_box.info()
+if money_box.can_add(30):
+    money_box.add(30)
+money_box.info()
+if money_box.can_add(30):
+    money_box.add(30)
+money_box.info()
+if money_box.can_add(30):
+    money_box.add(30)
+money_box.info()
+if money_box.can_add(30):
+    money_box.add(30)
+money_box.info()
