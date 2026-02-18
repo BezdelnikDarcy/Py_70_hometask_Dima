@@ -68,3 +68,13 @@ for line in reader:
     print(line)
 
 # 4
+def flatten(iterable):
+    for elem in iterable:
+        if isinstance(elem, list):
+            for item in flatten(elem):
+                yield item
+        else:
+            yield elem
+gen_fun = flatten([1, [2, 3], [[4], 5], 6])
+for i in gen_fun:
+    print(i, end=' ')
