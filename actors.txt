@@ -1,0 +1,101 @@
+CREATE TABLE IF NOT EXISTS "actors"
+(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+age INTEGER,
+sex TEXT CHECK(sex = "male" or sex = "female"),
+country TEXT,
+name TEXT NOT NULL,
+last_name TEXT NOT NULL
+)
+
+ALTER TABLE actors
+ADD COLUMN salary INTEGER;
+
+ALTER TABLE actors
+DROP COLUMN salary;
+
+INSERT INTO actors (name, last_name, sex, country, age) VALUES
+('Cillian', 'Murphy', 'male', 'Ireland', 48),
+('Penélope', 'Cruz', 'female', 'Spain', 50),
+('Ken', 'Watanabe', 'male', 'Japan', 65),
+('Charlize', 'Theron', 'female', 'South Africa', 49),
+('Mads', 'Mikkelsen', 'male', 'Denmark', 59),
+('Lupita', 'Nyong''o', 'female', 'Mexico', 42),
+('Oscar', 'Isaac', 'male', 'Guatemala', 45),
+('Fan', 'Bingbing', 'female', 'China', 43),
+('Hugh', 'Jackman', 'male', 'Australia', 56),
+('Marion', 'Cotillard', 'female', 'France', 49),
+('Daniel', 'Radcliffe', 'male', 'United Kingdom', 35),
+('Gal', 'Gadot', 'female', 'Israel', 39),
+('Antonio', 'Banderas', 'male', 'Spain', 64),
+('Deepika', 'Padukone', 'female', 'India', 39),
+('Gong', 'Li', 'female', 'Singapore', 59),
+('Jake', 'Gyllenhaal', 'male', 'USA', 44),
+('Rachel', 'McAdams', 'female', 'Canada', 46),
+('Song', 'Kang-ho', 'male', 'South Korea', 58),
+('Alicia', 'Vikander', 'female', 'Sweden', 36),
+('Eddie', 'Redmayne', 'male', 'United Kingdom', 43),
+('Florence', 'Pugh', 'female', 'United Kingdom', 28),
+('Ricardo', 'Darín', 'male', 'Argentina', 68),
+('Noomi', 'Rapace', 'female', 'Sweden', 45),
+('Daniel', 'Craig', 'male', 'United Kingdom', 56),
+('Zhang', 'Ziyi', 'female', 'China', 45),
+('Javier', 'Bardem', 'male', 'Spain', 55),
+('Catherine', 'Zeta-Jones', 'female', 'United Kingdom', 55),
+('Rani', 'Mukerji', 'female', 'India', 46),
+('Willem', 'Dafoe', 'male', 'USA', 69),
+('Léa', 'Seydoux', 'female', 'France', 39);
+
+INSERT INTO actors (name, last_name) VALUES
+('Joaquin', 'Phoenix'),
+('Saoirse', 'Ronan'),
+('Pedro', 'Pascal'),
+('Anya', 'Taylor-Joy'),
+('Adam', 'Driver');
+
+UPDATE actors
+SET country = "Unknown"
+WHERE country IS NULL
+
+UPDATE actors
+SET age = age + 2
+WHERE sex = "female"
+
+SELECT name, last_name, sex, country, age
+FROM actors
+WHERE age < 35 AND country = "France" AND sex = "female"
+
+SELECT name, last_name, sex, country, age
+FROM actors
+ORDER BY age ASC, name ASC
+LIMIT 5
+
+SELECT 
+count(*) AS "Общее количество актёров",
+avg(age) AS "Средний возраст",
+min(age) AS "Минимальный возраст",
+max(age) as "Максимальный возраст"
+FROM actors
+
+SELECT country
+FROM actors
+GROUP BY country
+HAVING count(*) > 5 AND count(*) < 10
+
+SELECT sex, avg(age) AS "Средний возраст"
+FROM actors
+GROUP BY sex
+
+SELECT name, last_name, sex, country, min(age) 
+FROM actors
+GROUP BY country
+
+SELECT DISTINCT country
+FROM actors
+WHERE country NOT IN(
+	SELECT country
+	FROM actors
+	WHERE sex = "female"
+	)
+ORDER BY country
+
