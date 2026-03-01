@@ -100,18 +100,36 @@ class Library:
     def search_book(self, keyword: str):
         search_text = keyword.lower()
         found_books = []
-        all_books = self.cursor.execute("SELECT title, author,year FROM books").fetchall()
+        all_books = self.cursor.execute("SELECT id, title, author,year, status FROM books").fetchall()
         for i in range(len(all_books)):
-            if search_text in all_books[i][0].lower() or search_text in all_books[i][1].lower():
-                found_books.append(all_books[i])
+            if search_text in all_books[i][1].lower() or search_text in all_books[i][2].lower():
+                book = Book(
+                    id=all_books[i][0],
+                    title=all_books[i][1],
+                    author=all_books[i][2],
+                    year=all_books[i][3],
+                    status=all_books[i][4]
+                )
+                found_books.append(book)
         return found_books
     def get_borrowed_books(self):
-        self.cursor.execute('''SELECT title, author,year, readers.name, borrowed_books.borrow_date
+        self.cursor.execute('''SELECT books.id, books.title, books.author, books.year, books.status, readers.id, readers.name, readers.age, borrowed_books.borrow_date
                                 FROM books
                                 INNER JOIN borrowed_books ON books.id = borrowed_books.book_id
                                 INNER JOIN readers ON readers.id = borrowed_books.reader_id
                                     ''')
-        return self.cursor.fetchall()
+        result = self.cursor.fetchall()
+
+        borrowed = []
+        for column in result:
+            book = Book(id = column[0], title = column[1], author = column[2], year = column[3], status = column[4])
+            reader = Reader(id = column[5], name = column[6], age = column[7])
+            borrowed.append({
+            "book": book,
+            "reader": reader,
+            "borrow_date": column[8]
+            })
+        return borrowed
     def get_statistics(self):
         self.cursor.execute('''SELECT 
                                 COUNT(CASE WHEN status = "available" THEN 1 END) AS available,
@@ -177,7 +195,9 @@ readers = [
 #             print(f"{title} - {author} - {year}")
 #     else:
 #         print("Ничего не найдено")
-print(lib.search_book("толстой"))
+found = lib.search_book("толстой")
+for book in found:
+    print(f"{book.title} - {book.author} - {book.year}")
 # conn = sqlite3.connect('library.db')
 # cursor = conn.cursor()
 # data = cursor.execute('''SELECT title, author, year from books''')
@@ -201,21 +221,18 @@ print(lib.search_book("толстой"))
 # Выданные книги
 
 # borrowed = lib.get_borrowed_books()
-# if borrowed:
-#     for title, author, year, name, borrow_time in borrowed:
-#         print(f"{title} у {name} выдана: {borrow_time}")
-# else:
-#     print("Нет выданных книг")
-
+#
+# for item in borrowed:
+#     print(f"{item['book'].title} у {item['reader'].name} выдана: {item['borrow_date']}")
 # Статистика
 
-stats = lib.get_statistics()[0]
-print(f"Количество доступных книг - {stats[0]}, количество занятых книг - {stats[1]}")
-
-#Возврат книги
-
-lib.return_books(3)
-stats = lib.get_statistics()[0]
-print(f"Количество доступных книг - {stats[0]}, количество занятых книг - {stats[1]}")
-
+# stats = lib.get_statistics()[0]
+# print(f"Количество доступных книг - {stats[0]}, количество занятых книг - {stats[1]}")
+#
+# #Возврат книги
+#
+# lib.return_books(3)
+# stats = lib.get_statistics()[0]
+# print(f"Количество доступных книг - {stats[0]}, количество занятых книг - {stats[1]}")
+#
 
